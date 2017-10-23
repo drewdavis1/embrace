@@ -1,0 +1,23 @@
+{{! Check for Blog Cover Existence }}
+{{#if @blog.cover_image}}
+<header role='banner' id="site-header" style="background: url({{@blog.cover_image}}) no-repeat center">
+
+{{else}}
+<header role='banner' id="site-header">
+    {{/if}}
+
+    {{! Check for Blog Logo Existence }}
+    {{#if @blog.logo}}
+    <a id="site-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>
+    {{/if}}
+    <h1 id="site-title">
+        <a href='{{@blog.url}}'>
+            {{@blog.title}}
+        </a>
+    </h1>
+    <h2 id="site-description">
+        <a href='{{@blog.url}}'>
+            {{@blog.description}}
+        </a>
+    </h2>
+</header>

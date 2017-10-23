@@ -1,0 +1,38 @@
+<div class="card is-shadowless  {{post_class}}">
+    <div class="card-content">
+        <div class="columns">
+            <div class="column has-text-centered">
+                <div class="title is-uppercase">
+                    <a href="{{{url}}}">{{title}}</a>
+                </div>                        
+                <h2 class="subtitle">{{date published_at format="dddd, MMMM DD, YYYY"}}</h2>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-one-quarter">
+                <figure class="image is-square">
+                    <img src="{{img_url feature_image}}">
+                </figure>
+            </div>
+            <div class="column">
+                <p>{{excerpt words="50"}}<span>...</span></p>
+
+
+            </div>
+        </div>
+        <div class="level">
+            <div class="level-left">
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{{{url}}}" class="button is-dark is-small">Read More →</a>
+                </div>
+            </div>
+        </div>
+        <div class="level">
+            <div class="level-left">
+                {{tags prefix="Labels:"}}
+            </div>
+        </div>    
+    </div>
+</div>

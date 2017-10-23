@@ -1,0 +1,63 @@
+{{!< default}}
+
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{> header}}
+
+
+<main id="content-wrapper" role="main">
+    {{!-- Everything inside the #post tags pulls data from the post --}}
+    {{#post}}    
+        <article class="{{post_class}}" role="article" itemscope itemtype="http://schema.org/Article">
+        
+            <header class="post-header">
+                <h1 class="post-title" itemprop="headline">{{{title}}}</h1>
+                <span class="post-byline">Posted on <time class="post-date" datetime="{{date format="YYYY-MM-DD"}}" itemprop="datePublished">{{date format='dddd DD MMM YYYY'}}</time> by {{author}}</span>
+            </header>
+
+            <div class="post-content" itemprop="articleBody">
+                {{content}}
+            </div>
+
+            {{#if tags}}
+                <div class="post-tags">
+                <span class="tag-list">{{tags prefix="Posted in: " separator=", "}}</span>
+                </div>
+            {{/if}} 
+
+            {{#if author}}
+                <footer id="post-footer">
+                    <address itemscope itemtype="http://schema.org/Person">
+
+                        {{#if author.image}}
+                            <div class="author-image">
+                            <img src="{{author.image}}" itemprop="image" /></div>
+                        {{else}}
+                            <div class="author-image">
+                            <img src="/assets/images/avatar.jpg" itemprop="image" /></div>
+                        {{/if}}
+                        
+                        <h4 class="author-name">
+                            <span itemprop="author">{{author.name}}</span>
+                        </h4>
+                        {{#if author.website}}
+                            <div class="author-website">
+                            <a href="{{author.website}}" itemprop="url" rel="nofollow">{{author.website}}</a></div>
+                        {{/if}}
+                    </address>
+                    
+                    <div class="author-bio">
+                        <p>{{author.bio}}</p>
+                    </div>
+                </footer>
+            {{/if}}
+        </article>
+    {{/post}}    
+
+    {{#if pagination}}
+        {{> pagination}}
+    {{/if}}
+</main>
+
+{{> footer}}

@@ -1,0 +1,38 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+
+{{> header}}
+
+<section class="section">
+    <div class="container">
+        <section class="columns">
+            <div class="column is-three-quarters posts">
+
+                {{#foreach posts}}  
+                    {{> "post-card"}}
+                {{/foreach}}
+            </div>
+            <div class="column sidebar">
+                <div class="tile is-ancestor">
+                    <div class="tile is-vertical">
+                       <div class="tile is-parent"></div>
+                        <div class="tile notification is-primary">
+                            Tile 1
+                        </div>
+                        <div class="tile notification is-warning">
+                            Tile 2
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column"></div>
+        </section>
+    </div>
+</section>
+
+
+
+
+{{> footer}}
