@@ -2,39 +2,32 @@
   "name": "embrace",
   "version": "0.1.0",
   "engines": {
-        "ghost": ">=1.0.0"
-    },
+    "ghost": ">=1.0.0"
+  },
   "description": "Embrace Template",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-    },
+  },
   "author": {
-      "name":   "Andrew Davis",
-      "email": "drewdavis1@gmail.com",
-      "url": "http://embracethecrazylife.com"      
-    },
-
+    "name": "Andrew Davis",
+    "email": "drewdavis1@gmail.com",
+    "url": "http://embracethecrazylife.com"
+  },
   "license": "MIT",
   "private": "true",
   "devDependencies": {
     "autoprefixer": "^7.1.5",
     "browser-sync": "^2.18.13",
     "bulma": "^0.6.0",
-    "cssnano": "^3.10.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.2.1",
-    "gulp-postcss": "^7.0.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
-    "gulp-util": "^3.0.8",
-    "gulp-watch": "^4.3.11",
     "gulp-zip": "^4.0.0",
     "node-sass": "^4.5.3"
   },
-    "config": {
-        "posts_per_page": 10
-    }
+  "config": {
+    "posts_per_page": 10
+  }
 }

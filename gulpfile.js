@@ -1,18 +1,17 @@
-var gulp = require('gulp');
+// Import Plugins
+var gulp        = require('gulp');
+var browserSync = require('browser-sync').create();
+var sass        = require('gulp-sass');
+var sourcemaps  = require('gulp-sourcemaps');
+var autoprefixer= require('gulp-autoprefixer');
+var zip         = require('gulp-zip');
 
-// gulp plugins and utils
-var gutil = require('gulp-util');
-var livereload = require('gulp-livereload');
-var nodemon = require('gulp-nodemon');
-var sourcemaps = require('gulp-sourcemaps');
-var zip = require('gulp-zip');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var cssnano = require('gulp-cssnano');
+// Set Global Variables
+var scssInput   = 'assets/scss/**/*.scss';
+var cssOutput   = 'assets/css';
+var webHost     = 'localhost:2368'    
 
-
-var scssInput = 'assets/scss/**/*.scss';
-var cssOutput = 'assets/css';
+//Set Options
 var sassOptions = {
     errLogToConsole: true,
     outputStyle: 'expanded'
@@ -22,42 +21,34 @@ var autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%', 'Firefox ESR']    
 }
 
-var swallowError = function swallowError(error) {
-    gutil.log(error.toString());
-    gutil.beep();
-    this.emit('end');
-};
+// Tasks
 
-var nodemonServerInit = function () {
-    livereload.listen();
-};
+// Proxy + watching scss/hbs files
+gulp.task('proxy', ['sass'], function() {
 
+    browserSync.init({
+        proxy: webHost
+    });
 
-gulp.task('build', ['scss'], function (/* cb */) {
-    return nodemonServerInit();
+    gulp.watch(scssInput, ['sass']);
+    gulp.watch(["*.hbs", "partials/*.hbs"]).on('change', browserSync.reload);
 });
 
-gulp.task('scss', function () {    
-    return gulp
-        .src(scssInput)
+// Compile sass into CSS & auto-inject into browsers
+gulp.task('sass', function() {
+    return gulp.src(scssInput)
         .pipe(sourcemaps.init())
-        .pipe(sass(sassOptions).on('error', sass.logError))
-        
+        .pipe(sass(sassOptions))
         .pipe(autoprefixer(autoprefixerOptions))
-        //.pipe(cssnano())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(cssOutput))
-        .pipe(livereload());    
-})
-
-
-gulp.task('watch', function () {
-    livereload.listen();
-    gulp.watch('assets/scss/**', ['scss']);
-    gulp.watch('**/*.hbs', ['scss']);
+        .pipe(browserSync.stream());
 });
 
-gulp.task('zip', ['scss'], function() {
+
+
+// Zip template for distribution
+gulp.task('zip', ['sass'], function() {
     var targetDir = 'dist/';
     var themeName = require('./package.json').name;
     var filename = themeName + '.zip';
@@ -67,6 +58,5 @@ gulp.task('zip', ['scss'], function() {
         .pipe(gulp.dest(targetDir));
 });
 
-gulp.task('default', ['build'], function () {
-    gulp.start('watch');
-});
+
+gulp.task('default', ['proxy']);
